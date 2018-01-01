@@ -39,9 +39,9 @@ defmodule Bump.Mixfile do
   defp package do
     [
       files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
-      maintainers: ["iLeeXu"],
+      maintainers: ["Milo Lee"],
       licenses: ["MIT"],
-      links: %{"Github": "https://github.com/lixu19941116/mix-bump"}
+      links: %{"Github": "https://github.com/oo6/mix-bump"}
     ]
   end
 end
