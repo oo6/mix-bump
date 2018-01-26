@@ -17,7 +17,7 @@ defmodule Mix.Tasks.Bump do
 
   @parse_opts [
     switches: [message: :string, publish: :boolean, tag: :string],
-    aliases: [m: :message, p: :publish, t: :tag],
+    aliases: [m: :message, p: :publish, t: :tag]
   ]
 
   def run(args) do
@@ -36,8 +36,7 @@ defmodule Mix.Tasks.Bump do
   defp process_args([version], options) do
     with {:ok, file, _old_version} <- MixBump.load_mix_file(),
          {:ok, file, new_version} <- MixBump.bump_version(file, version),
-         :ok <- MixBump.update_version(new_version)
-    do
+         :ok <- MixBump.update_version(new_version) do
       MixBump.save_mix_file!(file)
       process_options(options, new_version)
     end
@@ -47,15 +46,13 @@ defmodule Mix.Tasks.Bump do
     Command.write("Preparing and taging a new version")
 
     message = Keyword.get(options, :message, "Bump version to #{new_version}")
-    tag_name =
-      if name = Keyword.get(options, :tag), do: name, else: "v#{new_version}"
+    tag_name = if name = Keyword.get(options, :tag), do: name, else: "v#{new_version}"
 
     with :ok <- Git.commit(message),
-         :ok <- Git.tag(tag_name)
-    do
-     Command.callback(:ok)
+         :ok <- Git.tag(tag_name) do
+      Command.callback(:ok)
     else
-     _ -> Command.callback(:error)
+      _ -> Command.callback(:error)
     end
 
     if Keyword.get(options, :publish) do

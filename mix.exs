@@ -6,11 +6,11 @@ defmodule Bump.Mixfile do
       app: :mix_bump,
       version: "0.0.3",
       elixir: "~> 1.5",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
       description: description(),
-      package: package(),
+      package: package()
     ]
   end
 
@@ -24,7 +24,7 @@ defmodule Bump.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.18", only: :dev},
+      {:ex_doc, "~> 0.18", only: :dev}
     ]
   end
 
@@ -41,7 +41,7 @@ defmodule Bump.Mixfile do
       files: ["lib", "mix.exs", "README.md", "LICENSE.md"],
       maintainers: ["Milo Lee"],
       licenses: ["MIT"],
-      links: %{"Github": "https://github.com/oo6/mix-bump"}
+      links: %{Github: "https://github.com/oo6/mix-bump"}
     ]
   end
 end

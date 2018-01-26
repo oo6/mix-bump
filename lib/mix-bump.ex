@@ -13,25 +13,28 @@ defmodule MixBump do
   end
 
   def bump_version(file, "major") do
-    file = Regex.replace(@version_regex, file, fn _, major, _minor, _patch ->
-      "version: \"#{String.to_integer(major) + 1}.#{0}.#{0}\""
-    end)
+    file =
+      Regex.replace(@version_regex, file, fn _, major, _minor, _patch ->
+        "version: \"#{String.to_integer(major) + 1}.0.0\""
+      end)
 
     {:ok, file, get_version!(file)}
   end
 
   def bump_version(file, "minor") do
-    file = Regex.replace(@version_regex, file, fn _, major, minor, _patch ->
-      "version: \"#{major}.#{String.to_integer(minor) + 1}.#{0}\""
-    end)
+    file =
+      Regex.replace(@version_regex, file, fn _, major, minor, _patch ->
+        "version: \"#{major}.#{String.to_integer(minor) + 1}.0\""
+      end)
 
     {:ok, file, get_version!(file)}
   end
 
   def bump_version(file, "patch") do
-    file = Regex.replace(@version_regex, file, fn _, major, minor, patch ->
-      "version: \"#{major}.#{minor}.#{String.to_integer(patch) + 1}\""
-    end)
+    file =
+      Regex.replace(@version_regex, file, fn _, major, minor, patch ->
+        "version: \"#{major}.#{minor}.#{String.to_integer(patch) + 1}\""
+      end)
 
     {:ok, file, get_version!(file)}
   end
@@ -59,6 +62,7 @@ defmodule MixBump do
     case Regex.run(@version_regex, file) do
       nil ->
         Command.error("No version config found")
+
       result ->
         result |> tl |> Enum.join(".")
     end

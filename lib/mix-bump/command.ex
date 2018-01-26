@@ -13,6 +13,7 @@ defmodule MixBump.Command do
   end
 
   def callback(:ok), do: [:green, " \u2713"] |> IO.ANSI.format() |> IO.puts()
+
   def callback(:error) do
     [:red, " \u2717"] |> IO.ANSI.format() |> IO.puts()
     System.halt(1)
