@@ -53,7 +53,7 @@ defmodule MixBump do
 
   def update_version(new_version) do
     Agent.get_and_update(Mix.ProjectStack, fn %{stack: [%{config: config}] = stack} = state ->
-      config = Keyword.replace(config, :version, new_version)
+      config = Keyword.put(config, :version, new_version)
       {:ok, %{state | stack: [%{hd(stack) | config: config}]}}
     end)
   end
