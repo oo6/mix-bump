@@ -13,16 +13,16 @@ defmodule MixBump do
   end
 
   def bump_version(file, "major") do
-    file = Regex.replace(@version_regex, file, fn _, major, minor, patch ->
-      "version: \"#{String.to_integer(major) + 1}.#{minor}.#{patch}\""
+    file = Regex.replace(@version_regex, file, fn _, major, _minor, _patch ->
+      "version: \"#{String.to_integer(major) + 1}.#{0}.#{0}\""
     end)
 
     {:ok, file, get_version!(file)}
   end
 
   def bump_version(file, "minor") do
-    file = Regex.replace(@version_regex, file, fn _, major, minor, patch ->
-      "version: \"#{major}.#{String.to_integer(minor) + 1}.#{patch}\""
+    file = Regex.replace(@version_regex, file, fn _, major, minor, _patch ->
+      "version: \"#{major}.#{String.to_integer(minor) + 1}.#{0}\""
     end)
 
     {:ok, file, get_version!(file)}
