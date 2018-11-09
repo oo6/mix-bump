@@ -6,7 +6,7 @@ defmodule MixBump.Git do
   message with `--message` or `-m` when running the CLI. Default message is 
   `Bump version to NEW_VERSION`
   """
-  @spec commit(String.t) :: :ok | :error
+  @spec commit(String.t()) :: :ok | :error
   def commit(message) do
     Command.execute("git commit -o mix.exs -m '#{message}' -q")
   end
@@ -16,7 +16,7 @@ defmodule MixBump.Git do
   determines if tagging will be simple, or annotated. Defaults to annotated.
   """
   @type tag_options :: map
-  @type tag_name :: String.t
+  @type tag_name :: String.t()
 
   @spec tag(tag_name, tag_options) :: :ok | :error
   def tag(name, options \\ %{})

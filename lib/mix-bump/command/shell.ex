@@ -13,5 +13,4 @@ defmodule MixBump.Command.Shell do
   def task(task) do
     Mix.Task.run(task)
   end
-
 end

@@ -1,5 +1,4 @@
 defmodule MixBump.Command do
-  
   @adapter Application.get_env(:mix_bump, :command_adapter, MixBump.Command.Shell)
 
   defdelegate execute(message), to: @adapter

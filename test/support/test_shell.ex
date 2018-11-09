@@ -1,5 +1,4 @@
 defmodule MixBump.Command.TestShell do
-
   @moduledoc """
   A `MixBump.Command` adapter that sends commands to stdout, enabling them to 
   be captured in tests

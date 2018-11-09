@@ -51,8 +51,7 @@ defmodule Mix.Tasks.Bump do
     annotated = Keyword.get(options, :annotated, true)
 
     with :ok <- Git.commit(message),
-         :ok <- Git.tag(tag_name, %{message: message, annotated: annotated})
-    do
+         :ok <- Git.tag(tag_name, %{message: message, annotated: annotated}) do
       Command.callback(:ok)
     else
       _ -> Command.callback(:error)

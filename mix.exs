@@ -6,7 +6,7 @@ defmodule Bump.Mixfile do
       app: :mix_bump,
       version: "0.0.4",
       elixir: "~> 1.5",
-      elixirc_paths: elixirc_paths(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       docs: docs(),
@@ -48,5 +48,5 @@ defmodule Bump.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 end
