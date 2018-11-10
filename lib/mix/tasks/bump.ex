@@ -10,14 +10,15 @@ defmodule Mix.Tasks.Bump do
                          Commit message
         -p, --publish    Publish package to hex
         -t, --tag <name> Specify a tag
+        -a, --annotated  Use annotated tags (Enabled by default, use --no-annotated to use simple tags)
   """
 
   alias MixBump
   alias MixBump.{Command, Git}
 
   @parse_opts [
-    switches: [message: :string, publish: :boolean, tag: :string],
-    aliases: [m: :message, p: :publish, t: :tag]
+    switches: [message: :string, publish: :boolean, tag: :string, annotated: :boolean],
+    aliases: [m: :message, p: :publish, t: :tag, a: :annotated]
   ]
 
   def run(args) do
@@ -47,16 +48,17 @@ defmodule Mix.Tasks.Bump do
 
     message = Keyword.get(options, :message, "Bump version to #{new_version}")
     tag_name = if name = Keyword.get(options, :tag), do: name, else: "v#{new_version}"
+    annotated = Keyword.get(options, :annotated, true)
 
     with :ok <- Git.commit(message),
-         :ok <- Git.tag(tag_name) do
+         :ok <- Git.tag(tag_name, %{message: message, annotated: annotated}) do
       Command.callback(:ok)
     else
       _ -> Command.callback(:error)
     end
 
     if Keyword.get(options, :publish) do
-      Mix.Task.run("hex.publish") && Command.rainbow("Congrats on publishing a new package!")
+      Command.task("hex.publish") && Command.rainbow("Congrats on publishing a new package!")
     else
       Command.rainbow("Bump version to #{new_version}!")
     end
