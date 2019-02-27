@@ -1,5 +1,7 @@
 # Mix Bump
 
+[![Hex Version](http://img.shields.io/hexpm/v/mix_bump.svg)](https://hex.pm/packages/mix_bump)
+
 This is a simple mix task to version bump a mix project.
 
 ## Installation
