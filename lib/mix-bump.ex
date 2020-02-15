@@ -52,10 +52,14 @@ defmodule MixBump do
   def save_mix_file!(file), do: File.write!("mix.exs", file)
 
   def update_version(new_version) do
-    Agent.get_and_update(Mix.ProjectStack, fn %{stack: [%{config: config}] = stack} = state ->
-      config = Keyword.put(config, :version, new_version)
-      {:ok, %{state | stack: [%{hd(stack) | config: config}]}}
-    end)
+    GenServer.call(
+      Mix.ProjectStack,
+      {:update_stack,
+       fn [%{config: config}] = stack ->
+         config = Keyword.put(config, :version, new_version)
+         {:ok, [%{hd(stack) | config: config}]}
+       end}
+    )
   end
 
   defp get_version!(file) do
