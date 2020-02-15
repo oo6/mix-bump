@@ -36,8 +36,7 @@ defmodule Mix.Tasks.Bump do
 
   defp process_args([version], options) do
     with {:ok, file, _old_version} <- MixBump.load_mix_file(),
-         {:ok, file, new_version} <- MixBump.bump_version(file, version),
-         :ok <- MixBump.update_version(new_version) do
+         {:ok, file, new_version} <- MixBump.bump_version(file, version) do
       MixBump.save_mix_file!(file)
       process_options(options, new_version)
     end
@@ -58,6 +57,7 @@ defmodule Mix.Tasks.Bump do
     end
 
     if Keyword.get(options, :publish) do
+      MixBump.update_version(new_version)
       Command.task("hex.publish") && Command.rainbow("Congrats on publishing a new package!")
     else
       Command.rainbow("Bump version to #{new_version}!")
