@@ -4,11 +4,17 @@ defmodule MixBump.Command.Shell do
   """
   @behaviour MixBump.Command.Adapter
 
+  @doc """
+  Executes the given command.
+  """
   @impl true
   def execute(command) do
     if Mix.Shell.IO.cmd(command) == 0, do: :ok, else: :error
   end
 
+  @doc """
+  Runs a `task`.
+  """
   @impl true
   def task(task) do
     Mix.Task.run(task)

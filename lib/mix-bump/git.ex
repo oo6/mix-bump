@@ -2,9 +2,9 @@ defmodule MixBump.Git do
   alias MixBump.Command
 
   @doc """
-  Commits the modified mix file, with a custom message. You can specify this 
-  message with `--message` or `-m` when running the CLI. Default message is 
-  `Bump version to NEW_VERSION`
+  Commits the modified mix file, with a custom message. You can specify this
+  message with `--message` or `-m` when running the CLI. Default message is
+  `Bump version to NEW_VERSION`.
   """
   @spec commit(String.t()) :: :ok | :error
   def commit(message) do
@@ -12,7 +12,7 @@ defmodule MixBump.Git do
   end
 
   @doc """
-  Tags the release. In the CLI, the flags `--annotated` and `--no-annotated` 
+  Tags the release. In the CLI, the flags `--annotated` and `--no-annotated`
   determines if tagging will be simple, or annotated. Defaults to annotated.
   """
   @type tag_options :: map
